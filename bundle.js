@@ -25,6 +25,5 @@
   // index.js
   var NotesModel = require_notesModel();
   var notes = new NotesModel();
-  notes.addNote("eggs");
   console.log(notes.getNotes());
 })();

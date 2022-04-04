@@ -1,6 +1,5 @@
-const NotesModel = require('./notesModel.js');
+const NotesModel = require("./notesModel.js");
 
-const notes = new NotesModel;
-notes.addNote("eggs");
+const notes = new NotesModel();
 
 console.log(notes.getNotes());
