@@ -1,5 +1,4 @@
 class NotesModel {
-
   constructor() {
     this.notes = [];
   }
@@ -9,9 +8,8 @@ class NotesModel {
   }
 
   addNote(note) {
-    this.notes.push(note)
+    this.notes.push(note);
   }
-
 }
 
 module.exports = NotesModel;
