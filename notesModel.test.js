@@ -28,4 +28,16 @@ describe(NotesModel, () => {
 
   })
 
+  describe('Set note', () => {
+
+    it('should update notes from the backend server', () => {
+      const notes = new NotesModel;
+      let someNotes = ['egg', 'eggy', 'eggalishiuous'];
+
+      notes.setNotes(someNotes);
+      expect(notes.getNotes()).toEqual(someNotes);
+    })
+
+  })
+
 })

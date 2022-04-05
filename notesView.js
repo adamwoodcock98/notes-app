@@ -1,11 +1,12 @@
 const NotesModel = require("./notesModel.js");
+const NotesAPI = require("./notesApi.js");
 
 class NotesView {
-  constructor(model = new NotesModel()) {
+  constructor(model = new NotesModel(), api = new NotesAPI()) {
     this.model = model;
     this.notesListEl = document.querySelector("#notes-list");
     this.submitButtonEl = document.querySelector("#note-submit-btn");
-
+    this.api = api
     this.setupEventListeners();
   }
 
