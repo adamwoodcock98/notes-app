@@ -19,6 +19,9 @@
             this.notes.push(note);
           });
         }
+        reset() {
+          this.notes = [];
+        }
         addNote(note) {
           this.notes.push(note);
         }
@@ -31,9 +34,20 @@
   var require_notesApi = __commonJS({
     "notesApi.js"(exports, module) {
       var NotesAPI2 = class {
-        loadNotes(callback) {
-          fetch("http://localhost:3000/notes").then((response) => response.json()).then((data) => {
-            callback(data);
+        loadNotes(response) {
+          fetch("http://localhost:3000/notes").then((response2) => response2.json()).then((data) => {
+            response(data);
+          });
+        }
+        createNote(note, response) {
+          fetch("http://localhost:3000/notes", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ "content": note })
+          }).then((response2) => response2.json()).then((data) => {
+            response(data);
           });
         }
       };
@@ -47,7 +61,7 @@
       var NotesModel2 = require_notesModel();
       var NotesAPI2 = require_notesApi();
       var NotesView2 = class {
-        constructor(model2 = new NotesModel2(), api2 = new NotesAPI2()) {
+        constructor(model2, api2) {
           this.model = model2;
           this.notesListEl = document.querySelector("#notes-list");
           this.submitButtonEl = document.querySelector("#note-submit-btn");
@@ -57,9 +71,12 @@
         setupEventListeners() {
           this.submitButtonEl.addEventListener("click", () => {
             let inputText = document.querySelector("#note-input");
-            this.model.addNote(inputText.value);
-            inputText.value = "";
-            this.displayNotes();
+            this.api.createNote(inputText.value, (notes) => {
+              inputText.value = "";
+              this.model.reset();
+              this.model.setNotes(notes);
+              this.displayNotes();
+            });
           });
         }
         displayNotes() {

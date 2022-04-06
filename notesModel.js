@@ -13,6 +13,10 @@ class NotesModel {
     })
   }
 
+  reset() {
+    this.notes = [];
+  }
+
   addNote(note) {
     this.notes.push(note);
   }
